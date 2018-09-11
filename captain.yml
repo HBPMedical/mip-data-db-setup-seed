@@ -1,0 +1,9 @@
+target_image:
+  build: Dockerfile
+  image: DOCKER_REPO/CUSTOM-data-db-setup
+  pre:
+    - echo "Building DOCKER_REPO/CUSTOM-data-db-setup image"
+  post:
+    - echo "Finished building DOCKER_REPO/CUSTOM-data-db-setup image"
+  test:
+    - ./tests/test.sh

@@ -1,0 +1,44 @@
+---
+
+image: docker:latest
+
+variables:
+  NO_SUDO: "true"
+
+cache:
+  paths:
+    - ~/.pre-commit
+    - ~/.cache/pip/
+
+services:
+  - docker:dind
+
+before_script:
+  - apk add --no-cache bash python py-pip git curl
+  - curl -sSL https://raw.githubusercontent.com/harbur/captain/v1.1.0/install.sh | bash
+  - docker version
+  - docker info
+  - pip install --upgrade pip pre-commit
+  - pip install docker-compose==1.14.0
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo $USER
+    - pre-commit run --all-files
+    - PATH=$PATH:/$HOME/.captain/bin/ ./build.sh
+    # Do not push the Docker image as it is not publishable
+
+test:
+  stage: test
+  script:
+    # Login in private registry to fetch images for research data
+    - docker login -u $DOCKER_REPO_USER -p $DOCKER_REPO_PASSWORD registry.gitlab.com
+    # Rebuild the Docker image as it is not publishable
+    - PATH=$PATH:/$HOME/.captain/bin/ ./build.sh --tag latest
+    - PATH=$PATH:/$HOME/.captain/bin/ ./tests/test.sh

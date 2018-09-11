@@ -1,0 +1,36 @@
+# Build stage for statistics
+FROM hbpmip/python-mip:0.6.8 as build-stats-env
+
+COPY sql/mip_cde.csv sql/CUSTOM.csv /data/
+
+RUN csvstat /data/mip_cde.csv | tee /data/mip_cde.stats
+RUN csvstat /data/CUSTOM.csv | tee /data/CUSTOM.stats
+
+# Final image
+FROM hbpmip/mip-cde-data-db-setup:1.2.2
+
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+
+COPY config/ /flyway/config/
+COPY --from=build-stats-env /data /data
+COPY --from=build-java-env /project/CUSTOM-db-setup.jar /flyway/jars/
+COPY sql/V1_3_1__CUSTOM_features.sql /flyway/sql/
+
+ENV IMAGE=DOCKER_REPO/CUSTOM-data-db-setup:$VERSION \
+    DATASETS=mip_cde,mip_CUSTOM \
+    VIEWS=mip_local_features
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="DOCKER_REPO/CUSTOM-data-db-setup" \
+      org.label-schema.description="Setup the features database and load CUSTOM_LABEL data" \
+      org.label-schema.url="GIT_HTTP_REPO/CUSTOM-data-db-setup" \
+      org.label-schema.vcs-type="git" \
+      org.label-schema.vcs-url="GIT_SSH_REPO/CUSTOM-data-db-setup" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.version="$VERSION" \
+      org.label-schema.vendor="LREN CHUV" \
+      org.label-schema.license="DOCKER_LICENSE" \
+      org.label-schema.docker.dockerfile="Dockerfile" \
+      org.label-schema.schema-version="1.0"
