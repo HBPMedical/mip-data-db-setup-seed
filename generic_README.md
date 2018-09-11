@@ -1,5 +1,5 @@
 [![CHUV](https://img.shields.io/badge/CHUV-LREN-AF4C64.svg)](https://www.unil.ch/lren/en/home.html) [![License](DATA_LICENSE_BADGE)](https://github.com/LREN-CHUV/CUSTOM-data-db-setup/blob/master/LICENSE)
-[![build status](https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/badges/master/build.svg)](https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/commits/master)
+[![build status](GIT_HTTP_REPO/CUSTOM-data-db-setup/badges/master/build.svg)](GIT_HTTP_REPO/CUSTOM-data-db-setup/commits/master)
 
 # Docker image for CUSTOM_LABEL dataset
 
@@ -20,7 +20,7 @@ Run: `./build.sh`
 Run:
 
 ```console
-$ docker run -i -t --rm -e FLYWAY_HOST=`hostname` donotdistribute.local/hbpmip_private/CUSTOM-data-db-setup:0.0.1 migrate
+$ docker run -i -t --rm -e FLYWAY_HOST=`hostname` DOCKER_REPO/CUSTOM-data-db-setup:0.0.1 migrate
 ```
 
 where the environment variables are:

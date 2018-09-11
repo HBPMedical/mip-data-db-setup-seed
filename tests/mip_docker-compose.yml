@@ -20,7 +20,7 @@ services:
 
   # Use the latest image built as this is what is under test
   data_db_setup:
-    image: "donotdistribute.local/hbpmip_private/DATASET-data-db-setup:latest"
+    image: "DOCKER_REPO/DATASET-data-db-setup:latest"
     container_name: "DATASET-data-db-setup"
     environment:
       FLYWAY_DBMS: postgresql

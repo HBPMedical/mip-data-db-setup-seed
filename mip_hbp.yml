@@ -24,7 +24,7 @@ component:
 license:
   name: DATA_LICENSE
   badge: DATA_LICENSE_BADGE
-  url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/blob/master/LICENSE
+  url: GIT_HTTP_REPO/CUSTOM-data-db-setup/blob/master/LICENSE
 
 code_repositories:
   - name: chuv-gitlab/HBPMedical
@@ -33,8 +33,8 @@ code_repositories:
     git_clone: https://___.chuv.ch/data-factory/CUSTOM-data-db-setup.git
   - name: gitlab.com/hbpmip_private
     visibility: private
-    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/
-    git_clone: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup.git
+    url: GIT_HTTP_REPO/CUSTOM-data-db-setup/
+    git_clone: GIT_HTTP_REPO/CUSTOM-data-db-setup.git
 
 code_quality_checks: {}
 
@@ -45,15 +45,15 @@ testing:
 
 release_management:
   current_version: 0.0.1
-  current_code_release: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/repository/archive.zip?ref=0.0.1
-  current_docker_release: docker pull donotdistribute.local/hbpmip_private/CUSTOM-data-db-setup:0.0.1
+  current_code_release: GIT_HTTP_REPO/CUSTOM-data-db-setup/repository/archive.zip?ref=0.0.1
+  current_docker_release: docker pull DOCKER_REPO/CUSTOM-data-db-setup:0.0.1
   release_script: 'publish.sh'
 
 continuous_integration:
   - name: Gitlab CI
     description: "Check style and execute unit tests"
-    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/commits/master
-    badge: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/badges/master/build.svg
+    url: GIT_HTTP_REPO/CUSTOM-data-db-setup/commits/master
+    badge: GIT_HTTP_REPO/CUSTOM-data-db-setup/badges/master/build.svg
     actions:
       - code_style
       - unit_tests
@@ -64,7 +64,7 @@ distribution: {}
 planning:
   github:
     name: Issues on Gitlab
-    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/issues
+    url: GIT_HTTP_REPO/CUSTOM-data-db-setup/issues
 
 related_projects:
   - name: mip-cde-data-db-setup
