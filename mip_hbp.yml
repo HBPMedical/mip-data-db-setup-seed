@@ -1,0 +1,72 @@
+description: "CUSTOM_LABEL dataset packaged in a Docker image providing automated installation in a database"
+
+long_description: |
+  This Docker image manages the database migration scripts for the CUSTOM_LABEL dataset.
+
+  CUSTOM_LABEL dataset is split into table mip_cde_features for the CDE features and CUSTOM_features for the CUSTOM_LABEL specific features.
+
+  The view mip_local_features contains the variables from both MIP CDE and CUSTOM_LABEL.
+
+authors:
+  - author: Ludovic Claude
+    author_email:
+      - ludovic.claude@chuv.ch
+      - ludovic.claude54@gmail.com
+      - ludovic.claude54@googlemail.com
+    organisation: LREN-CHUV
+    organisation_badge: https://img.shields.io/badge/CHUV-LREN-AF4C64.svg
+
+platform: MIP
+component:
+  mip_building_block: reference
+  nature: docker-image
+
+license:
+  name: DATA_LICENSE
+  badge: DATA_LICENSE_BADGE
+  url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/blob/master/LICENSE
+
+code_repositories:
+  - name: chuv-gitlab/HBPMedical
+    visibility: private
+    url: https://___.chuv.ch/data-factory/CUSTOM-data-db-setup/
+    git_clone: https://___.chuv.ch/data-factory/CUSTOM-data-db-setup.git
+  - name: gitlab.com/hbpmip_private
+    visibility: private
+    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/
+    git_clone: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup.git
+
+code_quality_checks: {}
+
+testing:
+  unit_testing:
+    sources: /tests
+    command: /tests/tesh.sh
+
+release_management:
+  current_version: 0.0.1
+  current_code_release: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/repository/archive.zip?ref=0.0.1
+  current_docker_release: docker pull donotdistribute.local/hbpmip_private/CUSTOM-data-db-setup:0.0.1
+  release_script: 'publish.sh'
+
+continuous_integration:
+  - name: Gitlab CI
+    description: "Check style and execute unit tests"
+    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/commits/master
+    badge: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/badges/master/build.svg
+    actions:
+      - code_style
+      - unit_tests
+
+# Do not distribute this image and its data
+distribution: {}
+
+planning:
+  github:
+    name: Issues on Gitlab
+    url: https://gitlab.com/hbpmip_private/CUSTOM-data-db-setup/issues
+
+related_projects:
+  - name: mip-cde-data-db-setup
+    mip_building_block: reference
+    relationship: depend-on-other
