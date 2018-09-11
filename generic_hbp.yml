@@ -29,8 +29,8 @@ license:
 code_repositories:
   - name: chuv-gitlab/HBPMedical
     visibility: private
-    url: https://___.chuv.ch/data-factory/CUSTOM-data-db-setup/
-    git_clone: https://___.chuv.ch/data-factory/CUSTOM-data-db-setup.git
+    url: https://gitlab.chuv.ch/reference/CUSTOM-data-db-setup/
+    git_clone: https://gitlab.chuv.ch/reference/CUSTOM-data-db-setup.git
   - name: gitlab.com/hbpmip_private
     visibility: private
     url: GIT_HTTP_REPO/CUSTOM-data-db-setup/
