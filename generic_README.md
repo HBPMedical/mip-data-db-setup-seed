@@ -5,15 +5,20 @@
 
 This Docker image manages the database migration scripts for the CUSTOM_LABEL dataset.
 
-CUSTOM_LABEL dataset is split into table mip_cde_features for the CDE features and CUSTOM_features for the CUSTOM_LABEL specific features.
+A table is created to host CUSTOM_LABEL data.
 
-The view mip_local_features contains the variables from both MIP CDE and CUSTOM_LABEL.
-
-This image does not contain any data from CUSTOM_LABEL, only the definitions.
+IFDATA: The data is loaded from the csv file included in the Docker image, then uploaded into the database.
+IFNODATA: This image does not contain any data from CUSTOM_LABEL, only the definitions.
 
 ## How to build the Docker image
 
 Run: `./build.sh`
+
+## Testing
+
+```
+  ./test/test.sh
+```
 
 ## Usage
 

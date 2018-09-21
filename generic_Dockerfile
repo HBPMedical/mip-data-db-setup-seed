@@ -1,7 +1,7 @@
 # Build stage for statistics
 FROM hbpmip/python-mip:0.6.8 as build-stats-env
 
-COPY sql/CUSTOM.csv /data/
+COPY data/CUSTOM.csv /data/
 
 RUN csvstat /data/CUSTOM.csv | tee /data/CUSTOM.stats
 
@@ -12,13 +12,12 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-COPY config/ /flyway/config/
-COPY --from=build-stats-env /data /data
-COPY --from=build-java-env /project/CUSTOM-db-setup.jar /flyway/jars/
+COPY data/ /data/
+COPY --from=build-stats-env /data/*.stats /data
 COPY sql/V1_0__CUSTOM_features.sql /flyway/sql/
 
 ENV IMAGE=DOCKER_REPO/CUSTOM-data-db-setup:$VERSION \
-    DATASETS=CUSTOM
+    DATAPACKAGE=/data/datapackage.json
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="DOCKER_REPO/CUSTOM-data-db-setup" \
