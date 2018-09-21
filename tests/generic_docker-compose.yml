@@ -42,6 +42,6 @@ services:
       USER: data
       PASSWORD: data
     volumes:
-      - ./sql/DATASET-only:/test
+      - ./sql/DATASET:/test
     links:
       - "data_db:db"
