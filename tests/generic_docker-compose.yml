@@ -4,7 +4,7 @@ services:
 
   data_db:
     image: "postgres:9.6.5-alpine"
-    container_name: "DATASET-data-db"
+    container_name: "CUSTOM-data-db"
     restart: unless-stopped
     environment:
       POSTGRES_USER: data
@@ -20,8 +20,8 @@ services:
 
   # Use the latest image built as this is what is under test
   data_db_setup:
-    image: "DOCKER_REPO/DATASET-data-db-setup:latest"
-    container_name: "DATASET-data-db-setup"
+    image: "DOCKER_REPO/CUSTOM-data-db-setup:latest"
+    container_name: "CUSTOM-data-db-setup"
     environment:
       FLYWAY_DBMS: postgresql
       FLYWAY_HOST: db
@@ -34,7 +34,7 @@ services:
 
   data_db_check:
     image: "hbpmip/pgtap:0.96.0-5"
-    container_name: "DATASET-data-db-check"
+    container_name: "CUSTOM-data-db-check"
     environment:
       HOST: db
       PORT: 5432
@@ -42,6 +42,6 @@ services:
       USER: data
       PASSWORD: data
     volumes:
-      - ./sql/DATASET:/test
+      - ./sql/CUSTOM:/test
     links:
       - "data_db:db"

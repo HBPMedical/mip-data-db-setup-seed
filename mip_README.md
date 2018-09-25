@@ -15,6 +15,12 @@ This image does not contain any data from CUSTOM_LABEL, only the definitions.
 
 Run: `./build.sh`
 
+## Testing
+
+```
+  ./test/test.sh
+```
+
 ## Usage
 
 Run:
