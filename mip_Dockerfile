@@ -1,21 +1,32 @@
-# Build stage for statistics
-FROM hbpmip/python-mip:0.6.8 as build-stats-env
+FROM hbpmip/mip-cde-data-db-setup:1.4.2 as parent-image
 
-COPY data/mip_cde.csv data/CUSTOM.csv /data/
+# Build stage for quality control
+FROM python:3.6.1-alpine as data-qc-env
 
-RUN csvstat /data/mip_cde.csv | tee /data/mip_cde.stats
-RUN csvstat /data/CUSTOM.csv | tee /data/CUSTOM.stats
+RUN apk add --no-cache python3-dev build-base
+RUN pip3 install --no-cache-dir goodtables csvkit==1.0.2
+
+COPY data/mip_cde.csv data/CUSTOM.csv data/datapackage.json /data/
+WORKDIR /data
+
+# Produce a validation report, plus a readable report if there is an error
+
+COPY --from=parent-image /data/*.json /data/
+RUN goodtables validate -o datapackage.checks --json datapackage.json || goodtables validate datapackage.json
+RUN test $(grep -c "loading error" datapackage.checks) -eq 0
+
+RUN csvstat mip_cde.csv | tee mip_cde.stats
+RUN csvstat /CUSTOM.csv | tee CUSTOM.stats
 
 # Final image
-FROM hbpmip/mip-cde-data-db-setup:1.3.0
+FROM hbpmip/mip-cde-data-db-setup:1.4.0
 
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-COPY config/ /flyway/config/
 COPY data/ /data/
-COPY --from=build-stats-env /data/*.stats /data
+COPY --from=data-qc-env /data/*.stats /data/
 COPY sql/V1_3_1__CUSTOM_features.sql /flyway/sql/
 
 ENV IMAGE=DOCKER_REPO/CUSTOM-data-db-setup:$VERSION \
