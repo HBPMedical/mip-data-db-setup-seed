@@ -13,7 +13,7 @@ RUN test $(grep -c "loading error" datapackage.checks) -eq 0
 RUN csvstat CUSTOM.csv | tee CUSTOM.stats
 
 # Final image
-FROM hbpmip/data-db-setup:2.5.5
+FROM hbpmip/data-db-setup:2.6.1
 
 ARG BUILD_DATE
 ARG VCS_REF
