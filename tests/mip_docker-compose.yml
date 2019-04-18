@@ -47,7 +47,7 @@ services:
       - "data_db:db"
 
   edsd_data_db_setup:
-    image: "registry.gitlab.com/hbpmip_private/edsd-data-db-setup:1.5.1"
+    image: "registry.gitlab.com/hbpmip_private/edsd-data-db-setup:1.5.2"
     container_name: "edsd-data-db-setup"
     environment:
       FLYWAY_DBMS: postgresql
@@ -60,7 +60,7 @@ services:
      - "data_db:db"
 
   adni_merge_db_setup:
-    image: "registry.gitlab.com/hbpmip_private/adni-merge-db-setup:1.6.1"
+    image: "registry.gitlab.com/hbpmip_private/adni-merge-db-setup:1.6.2"
     container_name: "adni-data-db-setup"
     environment:
       FLYWAY_DBMS: postgresql
@@ -73,7 +73,7 @@ services:
     - "data_db:db"
 
   ppmi_data_db_setup:
-    image: "registry.gitlab.com/hbpmip_private/ppmi-data-db-setup:1.2.1"
+    image: "registry.gitlab.com/hbpmip_private/ppmi-data-db-setup:1.2.2"
     container_name: "ppmi-data-db-setup"
     environment:
       FLYWAY_DBMS: postgresql
