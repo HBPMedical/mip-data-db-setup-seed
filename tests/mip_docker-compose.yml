@@ -33,7 +33,7 @@ services:
      - "data_db:db"
 
   data_db_check:
-    image: "hbpmip/pgtap:1.0.0-0"
+    image: "hbpmip/pgtap:1.0.0-1"
     container_name: "CUSTOM-data-db-check"
     environment:
       HOST: db
@@ -86,7 +86,7 @@ services:
     - "data_db:db"
 
   with_research_data_db_check:
-    image: "hbpmip/pgtap:1.0.0-0"
+    image: "hbpmip/pgtap:1.0.0-1"
     container_name: "CUSTOM-with-research-data-db-check"
     environment:
       HOST: db
