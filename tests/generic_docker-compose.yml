@@ -3,7 +3,7 @@ version: '3'
 services:
 
   data_db:
-    image: "postgres:9.6.5-alpine"
+    image: "postgres:11.3-alpine"
     container_name: "CUSTOM-data-db"
     restart: unless-stopped
     environment:
@@ -33,7 +33,7 @@ services:
      - "data_db:db"
 
   data_db_check:
-    image: "hbpmip/pgtap:0.96.0-5"
+    image: "hbpmip/pgtap:1.0.0-0"
     container_name: "CUSTOM-data-db-check"
     environment:
       HOST: db
